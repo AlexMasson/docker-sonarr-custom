@@ -1,0 +1,17 @@
+**/node_modules
+**/.git
+**/_output
+**/_tests
+**/_temp
+**/bin
+**/obj
+**/Logo
+**/schemas
+**/docker
+**/distribution
+**/*.md
+!Sonarr/frontend/**
+!Sonarr/src/**
+!Sonarr/package.json
+!Sonarr/global.json
+!Sonarr/tsconfig.json

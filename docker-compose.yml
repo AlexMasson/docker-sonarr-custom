@@ -1,0 +1,15 @@
+services:
+  sonarr:
+    image: ghcr.io/alexmasson/sonarr-custom:latest
+    container_name: sonarr-custom
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/config
+      - /path/to/tvseries:/tv
+      - /path/to/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
