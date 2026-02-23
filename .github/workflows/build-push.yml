@@ -25,7 +25,7 @@ jobs:
         with:
           repository: AlexMasson/Sonarr
           path: Sonarr
-          ref: v5-develop
+          ref: feature/download_decision_override_stable
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
