@@ -11,10 +11,11 @@ COPY Sonarr/global.json Sonarr/global.json
 COPY Sonarr/src/ Sonarr/src/
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
-    dotnet restore Sonarr/src/Sonarr.sln -r linux-musl-x64
+    dotnet restore Sonarr/src/Sonarr.sln -r linux-musl-x64 -p:TargetFramework=net10.0
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
     dotnet publish Sonarr/src/NzbDrone.Console/Sonarr.Console.csproj \
+        -f net10.0 \
         -c Release \
         -r linux-musl-x64 \
         --self-contained \
