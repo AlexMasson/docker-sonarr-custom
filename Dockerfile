@@ -33,7 +33,8 @@ RUN --mount=type=cache,target=/root/.nuget/packages \
         --no-self-contained \
         -p:TreatWarningsAsErrors=false \
         -o /build/mono && \
-    cp /build/mono/Sonarr.Mono.dll /build/sonarr/bin/
+    cp /build/mono/Sonarr.Mono.dll /build/sonarr/bin/ && \
+    cp /build/mono/Mono.Posix.NETStandard.dll /build/sonarr/bin/ 2>/dev/null || true
 
 # ============================================================
 # Stage 2: Build Sonarr frontend
