@@ -13,6 +13,8 @@ COPY Sonarr/Logo/ Sonarr/Logo/
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
     dotnet restore Sonarr/src/NzbDrone.Console/Sonarr.Console.csproj \
+        -r linux-musl-x64 && \
+    dotnet restore Sonarr/src/NzbDrone.Mono/Sonarr.Mono.csproj \
         -r linux-musl-x64
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
@@ -23,7 +25,15 @@ RUN --mount=type=cache,target=/root/.nuget/packages \
         --self-contained \
         --no-restore \
         -p:TreatWarningsAsErrors=false \
-        -o /build/sonarr/bin
+        -o /build/sonarr/bin && \
+    dotnet publish Sonarr/src/NzbDrone.Mono/Sonarr.Mono.csproj \
+        -f net10.0 \
+        -c Release \
+        -r linux-musl-x64 \
+        --no-self-contained \
+        -p:TreatWarningsAsErrors=false \
+        -o /build/mono && \
+    cp /build/mono/Sonarr.Mono.dll /build/sonarr/bin/
 
 # ============================================================
 # Stage 2: Build Sonarr frontend
