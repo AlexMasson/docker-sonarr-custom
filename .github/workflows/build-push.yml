@@ -23,9 +23,10 @@ jobs:
       - name: Checkout Sonarr source
         uses: actions/checkout@v4
         with:
-          repository: AlexMasson/Sonarr
+          repository: AlexMasson/Sonarr_working
           path: Sonarr
-          ref: feature/download_decision_override_stable
+          ref: feature/external_hook
+          token: ${{ secrets.SONARR_REPO_TOKEN }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

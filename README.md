@@ -2,18 +2,18 @@
 
 Custom Sonarr Docker image built from source, using the linuxserver.io base image infrastructure (s6-overlay, Alpine 3.23).
 
-## What this does
+Builds from `AlexMasson/Sonarr_working` (private repo, branch `feature/external_hook`).
 
-- Multi-stage build: compiles Sonarr .NET backend + React frontend from source
-- Packages into `ghcr.io/linuxserver/baseimage-alpine:3.23` — identical runtime to the official linuxserver/sonarr image
-- Pushes to `ghcr.io/alexmasson/sonarr-custom` via GitHub Actions
+## How it works
 
-## Build locally
+GitHub Actions workflow:
+1. Checks out this repo + `AlexMasson/Sonarr_working`
+2. Multi-stage Docker build (SDK .NET 10 → Node 20 → Alpine 3.23 linuxserver base)
+3. Pushes to `ghcr.io/alexmasson/sonarr-custom` with tags: `latest`, commit SHA, date
 
-```bash
-# From this directory, with Sonarr source at ../Sonarr
-docker build --build-arg BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ) --build-arg VERSION=local -t sonarr-custom:local .
-```
+## Setup
+
+The workflow needs a `SONARR_REPO_TOKEN` secret (a PAT with `repo` scope) to access the private `Sonarr_working` repo. Set it in the repo settings under Settings > Secrets > Actions.
 
 ## Deploy on server
 
@@ -35,14 +35,7 @@ services:
     restart: unless-stopped
 ```
 
-## GitHub Actions
-
-On push to `main`, the workflow:
-1. Checks out this repo + AlexMasson/Sonarr (branch `v5-develop`)
-2. Builds the Docker image
-3. Pushes to `ghcr.io/alexmasson/sonarr-custom` with tags: `latest`, commit SHA, date
-
-## Architecture
+## Runtime architecture
 
 Same as linuxserver/docker-sonarr:
 - Base: Alpine 3.23 + s6-overlay
