@@ -9,7 +9,6 @@ Sonarr/src/**/bin/
 Sonarr/src/**/obj/
 Sonarr/frontend/node_modules/
 Sonarr/.git/
-Sonarr/Logo/
 Sonarr/schemas/
 Sonarr/docker/
 Sonarr/distribution/

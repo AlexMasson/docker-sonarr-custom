@@ -9,6 +9,7 @@ WORKDIR /src
 
 COPY Sonarr/global.json Sonarr/global.json
 COPY Sonarr/src/ Sonarr/src/
+COPY Sonarr/Logo/ Sonarr/Logo/
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
     dotnet restore Sonarr/src/NzbDrone.Console/Sonarr.Console.csproj \
